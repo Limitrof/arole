@@ -41,6 +41,7 @@
 <li><hr></li>
           @can('organizationEdit')
           <li><a href="{{ url('admin/organization') }}"><i class="fa fa-tag"></i> <span>Manage Organizations</span></a></li>
+          <li><a href="{{ url('admin/organizationtranslation') }}"><i class="fa fa-tag"></i> <span>Manage organizationtranslations</span></a></li>
           @endcan
           <li><hr></li>
 

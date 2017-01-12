@@ -1,22 +1,24 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
 class Organization extends Model
 {
     use CrudTrait;
+   // use Dimsav\Translatable\Translatable;
 
-     /*
-	|--------------------------------------------------------------------------
-	| GLOBAL VARIABLES
-	|--------------------------------------------------------------------------
-	*/
+    /*
+   |--------------------------------------------------------------------------
+   | GLOBAL VARIABLES
+   |--------------------------------------------------------------------------
+   */
     protected $table = 'organizations';
+/*    public $translatedAttributes = ['title'];
+    public $translationModel = 'App\Models\OrganizationTranslation';*/
     protected $primaryKey = 'id';
-    protected $fillable = ['title','logo','descr','photo','phone','address','email','geo','worktime'];
+    protected $fillable = ['logo','descr','photo','phone','address','email','geo','worktime','user_id'];
 
     //protected $table = 'organizations';
     //protected $primaryKey = 'id';
@@ -39,7 +41,7 @@ class Organization extends Model
 	*/
     public function User()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\User');
     }
     /*
 	|--------------------------------------------------------------------------

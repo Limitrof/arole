@@ -16,9 +16,16 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+Route::get('/language/{lang}',function($lang){
+    //session()->put('locale',$lang);
+    app()->setLocale($lang);
+    session()->put('locale',$lang);
+    return app()->getLocale().' <a href="/organizations">organizations</a>';
+    //return redirect()->back();
+});
 Route::get('/home', 'HomeController@index');
-
+Route::get('organizations', 'OrganizationController@index');
+Route::get('organization/{id}',  ['uses' => 'OrganizationController@getbyid']);
 
 // Admin Interface Routes
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function()
@@ -33,6 +40,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function()
     CRUD::resource('service_book', 'Admin\ServiceBookCrudController');
     CRUD::resource('brand', 'Admin\BrandCrudController');*/
     CRUD::resource('organization', 'Admin\OrganizationCrudController');
+    CRUD::resource('organizationtranslation', 'Admin\OrganizationTranslationCrudController');
    /* CRUD::resource('occupation', 'Admin\OccupationCrudController');
     CRUD::resource('organizationoccupation', 'Admin\OrganizationoccupationCrudController');
     CRUD::resource('order', 'Admin\OrderCrudController');*/

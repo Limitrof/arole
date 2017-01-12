@@ -7,7 +7,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\OrganizationRequest as StoreRequest;
 use App\Http\Requests\OrganizationRequest as UpdateRequest;
-
+use App\Organization;
 class OrganizationCrudController extends CrudController
 {
 
@@ -22,12 +22,6 @@ class OrganizationCrudController extends CrudController
         $this->crud->setModel("App\Models\Organization");
         $this->crud->setRoute("admin/organization");
         $this->crud->setEntityNameStrings('organization', 'organizations');
-
-        /*
-		|--------------------------------------------------------------------------
-		| BASIC CRUD INFORMATION
-		|--------------------------------------------------------------------------
-		*/
 
         $this->crud->setFromDb();
         $this->crud->addField([    // Image
@@ -116,10 +110,18 @@ class OrganizationCrudController extends CrudController
 
 	public function store(StoreRequest $request)
 	{
-		// your additional operations before save here
+        // your additional operations before save here
         $redirect_location = parent::storeCrud();
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
+        //return $this->crud->entry->toArray()['id'] .App()->getLocale();
+        $neworgid = $this->crud->entry->toArray()['id'];
+        $currlocale = App()->getLocale();
+        $org = Organization::find($neworgid);
+        foreach (['en', 'ru', 'ua'] as $locale) {
+            $org->translateOrNew($locale)->title = "Title {$locale}";
+        }
+
         return $redirect_location;
 	}
 

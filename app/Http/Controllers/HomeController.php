@@ -21,6 +21,20 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function language($lang)
+    {
+        //$changeLocale = new ChangeLocale($request->input('lang'));
+       /*
+        $changeLocale = new ChangeLocale($lang);
+        $this->dispatch($changeLocale);
+        */
+        session()->put('locale',$lang);
+        app()->setLocale($lang);
+        app()->setLocale('zzz');
+        return redirect()->back();
+        //return view('home');
+    }
+
     public function index()
     {
         return view('home');

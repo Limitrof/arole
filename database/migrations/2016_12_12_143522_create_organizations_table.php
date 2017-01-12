@@ -15,7 +15,7 @@ class CreateOrganizationsTable extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title',255);
+            /*$table->string('title',255);*/
             $table->string('logo',500)->nullable();
             $table->text('descr')->nullable();
             $table->timestamps();
@@ -30,6 +30,17 @@ class CreateOrganizationsTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users');
         });
+
+        Schema::create('organization_translations', function(Blueprint $table)
+        {
+            $table->increments('id');
+            $table->integer('organization_id')->unsigned();
+            $table->string('title');
+            $table->string('locale')->index();
+
+            $table->unique(['organization_id','locale']);
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
+        });
     }
 
     /**
@@ -40,5 +51,6 @@ class CreateOrganizationsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('organizations');
+        Schema::dropIfExists('organizations_translations');
     }
 }

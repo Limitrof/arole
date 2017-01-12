@@ -91,7 +91,7 @@ return [
     */
 
     'fallback_locale' => 'en',
-
+	'languages' =>  ['en','ru','ua'],
     /*
     |--------------------------------------------------------------------------
     | Encryption Key
@@ -170,6 +170,8 @@ return [
 		Backpack\CRUD\CrudServiceProvider::class,
 		Backpack\PermissionManager\PermissionManagerServiceProvider::class,
 		Backpack\LangFileManager\LangFileManagerServiceProvider::class,
+		//multitranslate in additional table
+		Dimsav\Translatable\TranslatableServiceProvider::class,
         //
 
         /*
