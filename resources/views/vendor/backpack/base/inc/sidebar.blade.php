@@ -13,6 +13,17 @@
             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
           </div>
         </div>
+          <hr/>
+          @foreach (Config::get('languages') as $lang => $language)
+              @if ($lang != App::getLocale())
+                  <li>
+                      <a href="{{ route('lang.switch', $lang) }}">{{$language}}</a>
+                  </li>
+              @else
+                  <li>{{$language}}</li>
+          @endif
+      @endforeach
+          <hr/>
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
           <li class="header">{{ trans('backpack::base.administration') }}</li>

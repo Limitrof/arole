@@ -46,6 +46,15 @@
                         &nbsp;
                     </ul>
 
+                @foreach (Config::get('languages') as $lang => $language)
+                        @if ($lang != App::getLocale())
+                            <li>
+                                <a href="{{ route('lang.switch', $lang) }}">{{$language}}</a>
+                            </li>
+                            @else
+                            <li>{{$language}}</li>
+                    @endif
+                @endforeach
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->

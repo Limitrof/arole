@@ -16,13 +16,14 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('/language/{lang}',function($lang){
+Route::get('lang/{lang}', ['as'=>'lang.switch', 'uses'=>'LanguageController@switchLang']);
+/*Route::get('/language/{lang}',function($lang){
     //session()->put('locale',$lang);
     app()->setLocale($lang);
     session()->put('locale',$lang);
     return app()->getLocale().' <a href="/organizations">organizations</a>';
     //return redirect()->back();
-});
+});*/
 Route::get('/home', 'HomeController@index');
 Route::get('organizations', 'OrganizationController@index');
 Route::get('organization/{id}',  ['uses' => 'OrganizationController@getbyid']);

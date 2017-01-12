@@ -25,7 +25,6 @@ class OrganizationController extends Controller
         $org = Organization::find($id);
        // return App::getLocale();
        // if(App::getLocale()== 'en') {
-       
             return view('organization')->with(['oo' => $org]);
       /*  } else {
 

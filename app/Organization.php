@@ -13,7 +13,7 @@ class Organization extends Model
     public $translatedAttributes = ['title'];
     public $translationModel = 'App\OrganizationTranslation';
     protected $primaryKey = 'id';
-    protected $fillable = ['logo','descr','photo','phone','address','email','geo','worktime','user_id'];
+    protected $fillable = ['logo','title_trans','descr','photo','phone','address','email','geo','worktime','user_id'];
 
     //protected $table = 'organizations';
     //protected $primaryKey = 'id';

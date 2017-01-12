@@ -29,8 +29,8 @@ class HomeController extends Controller
         $this->dispatch($changeLocale);
         */
         session()->put('locale',$lang);
-        app()->setLocale($lang);
-        app()->setLocale('zzz');
+       /* app()->setLocale($lang);
+        app()->setLocale('zzz');*/
         return redirect()->back();
         //return view('home');
     }

@@ -118,10 +118,15 @@ class OrganizationCrudController extends CrudController
         $neworgid = $this->crud->entry->toArray()['id'];
         $currlocale = App()->getLocale();
         $org = Organization::find($neworgid);
-        foreach (['en', 'ru', 'ua'] as $locale) {
-            $org->translateOrNew($locale)->title = "Title {$locale}";
+        //foreach (Config::get('languages') as $locale => $language) {
+        foreach (config('languages') as $locale => $language) {
+            if (App()->getLocale() == $locale) {
+                $org->translateOrNew($locale)->title = "{$this->crud->entry->toArray()['title_trans']}";
+            } else {
+                $org->translateOrNew($locale)->title = "Title {$locale}";
+            }
         }
-
+        $org->save();
         return $redirect_location;
 	}
 
@@ -129,8 +134,13 @@ class OrganizationCrudController extends CrudController
 	{
 		// your additional operations before save here
         $redirect_location = parent::updateCrud();
-        // your additional operations after save here
-        // use $this->data['entry'] or $this->crud->entry
+
+        $neworgid = $this->crud->entry->toArray()['id'];
+        $currlocale = App()->getLocale();
+        $org = Organization::find($neworgid);
+        $org->translateOrNew($currlocale)->title = "{$this->crud->entry->toArray()['title_trans']}";
+        $org->save();
+
         return $redirect_location;
 	}
 }
